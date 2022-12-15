@@ -11,7 +11,7 @@ if (isset($_SESSION['id'])) {
     // $result = mysqli_query($connect, $getUserQuery);
     $thisUser = mysqli_fetch_assoc($result);
 
-    if(isset($_COOKIE['user_email'])){
+    if (isset($_COOKIE['user_email'])) {
         $email = $_COOKIE['user_email'];
     }
 } else {
@@ -33,62 +33,68 @@ if (isset($_SESSION['id'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 </head>
 
 <body>
-    <div class="container">
-        <div class="col-8 mx-auto">
-            <div class="card shadow-sm border-0">
+    <div class="container-fill">
+        <div class="col-sm-7">
+            <div class="card my-3 shadow-sm border-0">
                 <div class="card-image text-center">
-                    <img src="<?php echo 'uploads/'.$thisUser['profile_pic'] ?>" alt="" style="height: 200px; width: 200px;"   class="rounded-circle">
-                </div>
-                <form action="process.php" method="POST" enctype="multipart/form-data">
-                    <p>
-                    <?php
-                        if(isset($_SESSION['errorMessage'])){
-                            echo $_SESSION['errorMessage'];
-                        }
-                    ?>
-                    </p>
-                    <!-- <input type="text" name="a"> -->
-                    <input type="file" name="image" accept="">
-                    <button type="submit" name="upload" class="btn btn-primary">Upload</button>
-                    <!-- if multiple file along time a form, the name of the file will will have and [] in from of the file name, and the input will have attribute of multiple -->
-                    <!-- <input type="file" name="filename[]" multiple id=""> -->
-                </form>
-                    <span class="text-center">
-                    <?php 
-                            if(isset($_SESSION['message'])){
-                                echo $_SESSION['message'];
+                    <form action="process.php" method="POST" enctype="multipart/form-data">
+                            <?php
+                            if (isset($_SESSION['errorMessage'])) {
+                                echo "<span class='text-center text-success'>".$_SESSION['errorMessage']."</span>";
                             }
-                            
+                            unset($_SESSION['errorMessage']);
                             ?>
-                </span>
-                <button type="button" class="btn btn-primary ms-auto" style="width: 4rem;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    Edit
-                </button>
+                        <img src="<?php echo 'uploads/' . $thisUser['profile_pic'] ?>" alt="" style="height: 200px; width: 200px;" class="rounded-circle">
+                        <label for="img" class="text-color">
+                            <span class="material-symbols-outlined editIcon">
+                                edit_square
+                            </span>
+                            <input type="file" name="image" id="img" class="d-none ">
+                        </label>
+                        <button type="submit" name="upload" class="btn bg_navy">Upload</button>
+                    </form>
+                </div>
+                    <?php
+                    if (isset($_SESSION['message'])) {
+                        if($_SESSION['status']==true){
+                            echo "<span class='text-center text-success'>".$_SESSION['message']."</span>";                        
+                        }
+                        else{
+                            echo "<span class='text-center text-danger'>".$_SESSION['message']."</span>";                        
+
+                        }
+                    }
+                    unset($_SESSION['message']);
+                    ?>
+                
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <strong class="text-primary">Name</strong>
-                            <p class="border-0 border-bottom my-2 border-primary px-2"><?php echo $thisUser['name'] ?>
-
+                            <strong class="text-color">Name</strong>
+                            <p class="border-0 brd_btm my-2 border-primary px-2"><?php echo $thisUser['name'] ?>
                             </p>
                         </div>
                         <div class="col-md-6">
-                            <strong class="text-primary">E-mail Address</strong>
-                            <p class="border-0 border-bottom my-2 border-primary px-2"><?php echo $thisUser['email'] ?></p>
+                            <strong class="text-color">E-mail Address</strong>
+                            <p class="border-0 brd_btm my-2 px-2"><?php echo $thisUser['email'] ?></p>
                         </div>
-
+                        <button type="button" class="btn btn-danger  ms-auto" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="width: 7rem;" >
+                    Edit Profile
+                </button>
                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                <form action="process.php" method="POST">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                                    </div>
-                                    <div class="modal-body">
-                                        
+                                    <form action="process.php" method="POST">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Edit Information</h5>
+                                        </div>
+                                        <div class="modal-body">
+
                                             <div class="form-floating my-2">
                                                 <input type="text" placeholder="Name" name="name" class="form-control" value="<?php echo $thisUser['name'] ?>">
                                                 <label for="">Name</label>
@@ -99,9 +105,9 @@ if (isset($_SESSION['id'])) {
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button class="btn btn-primary" name="saveChanges" >Save Changes</button>
+                                            <button class="btn bg_navy" name="saveChanges">Save Changes</button>
                                         </div>
-                                    </div>
+                                </div>
                                 </form>
                             </div>
                         </div>

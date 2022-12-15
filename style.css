@@ -9,9 +9,21 @@
     align-items: center;
     min-height: 100vh;
 }
+.container-fill{
+    background-image: url('uploads/2.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 .card {
     background-color: rgb(215, 224, 250);
+    padding: 3vh;
 }
 
 .form-control {
@@ -19,7 +31,10 @@
     border-radius: 0 !important;
     border-bottom: 2px solid navy !important;
 }
+.brd_btm{
+    border-bottom: 2px solid navy !important;
 
+}
 .text-color {
     color: navy;
 }
@@ -27,4 +42,7 @@
 .bg_navy {
     background-color: navy !important;
     color: white !important;
+}
+.editIcon{
+    cursor: pointer !important;
 }

@@ -8,7 +8,6 @@ if (isset($_SESSION['id'])) {
     $stmt->bind_param('i', $id);
     $stmt->execute();
     $result = mysqli_stmt_get_result($stmt);
-    // $result = mysqli_query($connect, $getUserQuery);
     $thisUser = mysqli_fetch_assoc($result);
 
     if (isset($_COOKIE['user_email'])) {
@@ -34,27 +33,37 @@ if (isset($_SESSION['id'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
 </head>
+<script>
+    let avatar = "";
+    if(sessionStorage.avatar !=null){
+        avatar = sessionStorage.getItem('avatar');
+    }
+    const setAvatar=()=>{
+        document.getElementsByClassName('container-fill').style.backgroundImage= `url('uploads/${avatar}.gif')`
+    }
+</script>
+
 
 <body>
-    <div class="container-fill">
-        <div class="col-sm-7">
-            <div class="card my-3 shadow-sm border-0">
+    <div class="container-fill" id="hh" onload="setAvatar()">
+        <div class="col-sm-8">
+            <div class="card shadow-sm border-0">
                 <div class="card-image text-center">
-                    <form action="process.php" method="POST" enctype="multipart/form-data">
+                    <div class="float-end">
+                        <a href ="login.php" class="text-color" onclick="logout()">Logout</a>
+                    </div>
+                    <form action="./OOP/uploadProfile.php" method="POST" enctype="multipart/form-data">
                             <?php
                             if (isset($_SESSION['errorMessage'])) {
-                                echo "<span class='text-center text-success'>".$_SESSION['errorMessage']."</span>";
+                                echo "<span class='text-center text-danger'>".$_SESSION['errorMessage']."</span>";
                             }
                             unset($_SESSION['errorMessage']);
                             ?>
                         <img src="<?php echo 'uploads/' . $thisUser['profile_pic'] ?>" alt="" style="height: 200px; width: 200px;" class="rounded-circle">
                         <label for="img" class="text-color">
-                            <span class="material-symbols-outlined editIcon">
-                                edit_square
-                            </span>
-                            <input type="file" name="image" id="img" class="d-none ">
+                            <b>Change Profile Picture</b>
+                            <input type="file" name="image" id="img" class="form-control">
                         </label>
                         <button type="submit" name="upload" class="btn bg_navy">Upload</button>
                     </form>

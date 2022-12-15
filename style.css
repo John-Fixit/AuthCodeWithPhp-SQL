@@ -1,3 +1,4 @@
+
 .bgImg {
     background-image: url('uploads/bgImg.jpg');
     background-repeat: no-repeat;
@@ -10,7 +11,7 @@
     min-height: 100vh;
 }
 .container-fill{
-    background-image: url('uploads/2.gif');
+    background-image: url('uploads/1.gif');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -23,7 +24,7 @@
 
 .card {
     background-color: rgb(215, 224, 250);
-    padding: 3vh;
+    padding: 5vh;
 }
 
 .form-control {
@@ -43,6 +44,11 @@
     background-color: navy !important;
     color: white !important;
 }
-.editIcon{
+.cursorPointer{
     cursor: pointer !important;
+}
+.eachAvatar:hover{
+    border: 2px solid navy !important;
+    padding: 1.5vh;
+    transition: all ease .5s;
 }

@@ -1,0 +1,30 @@
+.bgImg {
+    background-image: url('uploads/bgImg.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.card {
+    background-color: rgb(215, 224, 250);
+}
+
+.form-control {
+    border: 0 !important;
+    border-radius: 0 !important;
+    border-bottom: 2px solid navy !important;
+}
+
+.text-color {
+    color: navy;
+}
+
+.bg_navy {
+    background-color: navy !important;
+    color: white !important;
+}
